@@ -1,0 +1,34 @@
+﻿a.schwarz:hover
+{
+color:red;
+text-decoration:none;
+cursor: pointer;
+}
+
+a.weiss:hover
+{
+color:yellow;
+text-decoration:none;
+cursor: pointer;
+}
+
+a.weiss
+{
+color:white;
+text-decoration:none;
+curser: pointer;
+}
+
+a.anders
+{
+color:orange;
+text-decoration:none;
+curser: pointer;
+}
+
+a.anders:hover
+{
+color:red;
+text-decoration:none;
+cursor: pointer;
+}

@@ -1,0 +1,711 @@
+<html>
+<head>
+<title>Dart Rechner</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="shortcut icon" type="image/x-icon" href="icon.ico" />
+</head>
+
+<script language="JavaScript" type="text/javascript">
+var left;
+var left2;
+var last_score;
+var last_score2;
+var average3;
+var average3hilf;
+var average3hilf2;
+var average32;
+var wurf;
+var wurf2;
+var wurf_insg;
+var wurf_insg2;
+var zweispieler;
+var einspieler;
+var zweizweizwei;
+
+function info() {
+window.open('_blank','width=800,height=400,scrollbars=yes,resizable=yes,status=no,toolbar=no,left=300,top=200');
+}
+
+function spieler1(wert)
+{
+	if (left > wert - 1)
+	{
+		if (left - wert >= 0)
+		{
+			left = left - wert;
+			document.getElementById('rest').innerHTML = left;
+			checkout(left);
+			wurf = wurf + 1;
+			wurf_insg = wurf_insg + 1;
+			document.getElementById('darts').innerHTML = wurf_insg;
+			last_score = last_score + wert;
+		}
+		
+		if (wurf == 3 || left == 0)
+		{
+			document.getElementById('score').innerHTML = last_score;
+			last_score = 0;
+			
+			//average
+			average3hilf = wurf_insg / 3;
+			average3 = (501 - left) / average3hilf;
+			average3 = Math.round(average3 * 100) / 100;
+			document.getElementById('avg3').innerHTML = average3;
+			
+			wurf = 0;
+			checkout(left);
+			if (zweizweizwei == 1)
+			{
+				zweispieler = 1;
+				einspieler = 0;
+				document.getElementById('reihe').innerHTML = "Spieler 2 ist dran";
+			}
+		}
+		
+		if (left == 0) alert("Spieler 1 Gewinnt!")
+	}
+	else 
+	{
+		alert("Ueberworfen!");
+		last_score = last_score + wert;
+		left = left - wert;
+		left = left + last_score;
+		document.getElementById('rest').innerHTML = left;
+		wurf = wurf + 1;
+		wurf_insg = wurf_insg + 1;
+		document.getElementById('score').innerHTML = last_score;
+		last_score = 0;
+		
+		wurf = 0;
+		document.getElementById('darts').innerHTML = wurf_insg;
+		if (zweizweizwei == 1)
+		{
+			zweispieler = 1;
+			einspieler = 0;
+			document.getElementById('reihe').innerHTML = "Spieler 2 ist dran";
+		}
+	}
+}
+
+function spieler2(wert2)
+{
+	if (left2 > wert2 - 1)
+	{
+		left2 = left2 - wert2;
+		document.getElementById('rest2').innerHTML = left2;
+		checkout2(left2);
+		wurf2 = wurf2 + 1;
+		wurf_insg2 = wurf_insg2 + 1;
+		last_score2 = last_score2 + wert2;
+		
+		if (wurf2 == 3 || left2 == 0)
+		{
+			document.getElementById('score2').innerHTML = last_score2;
+			last_score2 = 0;
+		
+			//average
+			average3hilf2 = wurf_insg2 / 3;
+			average32 = (501 - left2) / average3hilf2;
+			average32 = Math.round(average32 * 100) / 100;
+			document.getElementById('avg32').innerHTML = average32;
+			
+			wurf2 = 0;
+			checkout2(left2);
+			zweispieler = 0;
+			einspieler = 1;
+			document.getElementById('reihe').innerHTML = "Spieler 1 ist dran";
+		}	
+		document.getElementById('darts2').innerHTML = wurf_insg2;
+		
+		if (left2 == 0) alert("Spieler 2 Gewinnt!")
+	}
+	else 
+	{
+		alert("Ueberworfen!");
+		last_score2 = last_score2 + wert2;
+		left2 = left2 - wert2;
+		left2 = left2 + last_score2;
+		document.getElementById('rest2').innerHTML = left2;
+		wurf2 = wurf2 + 1;
+		wurf_insg2 = wurf_insg2 + 1;
+		document.getElementById('score2').innerHTML = last_score2;
+		last_score2 = 0;
+		
+		wurf2 = 0;
+		document.getElementById('darts2').innerHTML = wurf_insg2;
+		
+		zweispieler = 0;
+		einspieler = 1;
+		document.getElementById('reihe').innerHTML = "Spieler 1 ist dran";
+	}
+}
+
+function minus(wert, wert2)
+{	
+	if (einspieler == 1)
+	{
+		spieler1(wert);
+	}
+	else if (zweispieler == 1)
+	{
+		spieler2(wert2);
+	}
+}
+
+function start(anfang)
+{
+	zweizweizwei = 0;
+	einspieler = 1;
+	zweispieler = 0;
+	left = anfang;
+	last_score = 0;
+	average = 0;
+	average3 = 0;
+	wurf = 0;
+	wurf_insg = 0;
+	
+	document.getElementById('score').innerHTML = last_score;
+	document.getElementById('rest').innerHTML = left;
+	document.getElementById('darts').innerHTML = wurf_insg;
+	document.getElementById('avg3').innerHTML = average3;
+	document.getElementById('check').innerHTML = "";
+	document.getElementById('checkalt').innerHTML = "";
+}
+
+function start2(anfang, anfang2)
+{
+	document.getElementById('reihe').innerHTML = "Spieler 1 ist dran";
+	zweispieler = 0;
+	zweizweizwei = 1;
+	einspieler = 1;
+	left = anfang;
+	left2 = anfang2;
+	last_score = 0;
+	last_score2 = 0;
+	average = 0;
+	average2 = 0;
+	average3 = 0;
+	average32 = 0;
+	wurf = 0;
+	wurf2 = 0;
+	wurf_insg = 0;
+	wurf_insg2 = 0;
+	document.getElementById('check').innerHTML = "";
+	document.getElementById('checkalt').innerHTML = "";
+	document.getElementById('check2').innerHTML = "";
+	document.getElementById('checkalt2').innerHTML = "";
+	
+	document.getElementById('score').innerHTML = last_score;
+	document.getElementById('rest').innerHTML = left;
+	document.getElementById('darts').innerHTML = wurf_insg;
+	document.getElementById('avg3').innerHTML = average3;
+	
+	document.getElementById('score2').innerHTML = last_score2;
+	document.getElementById('rest2').innerHTML = left2;
+	document.getElementById('darts2').innerHTML = wurf_insg2;
+	document.getElementById('avg32').innerHTML = average32;
+}
+
+function checkout(left)
+{
+	if (left == 170) document.getElementById('check').innerHTML = "T20 + T20 + Bull";
+	if (left == 167) document.getElementById('check').innerHTML = "T20 + T19 + Bull";
+	if (left == 164) document.getElementById('check').innerHTML = "T20 + T18 + Bull";
+	if (left == 164) document.getElementById('checkalt').innerHTML = "T19 + T19 + Bull";
+	if (left == 161) document.getElementById('check').innerHTML = "T20 + T17 + Bull";
+	if (left == 160) document.getElementById('check').innerHTML = "T20 + T20 + D20";
+	if (left == 158) document.getElementById('check').innerHTML = "T20 + T20 + D19";
+	if (left == 157) document.getElementById('check').innerHTML = "T20 + T19 + D20";
+	if (left == 156) document.getElementById('check').innerHTML = "T20 + T20 + D18";
+	if (left == 155) document.getElementById('check').innerHTML = "T20 + T19 + D19";
+	if (left == 154) document.getElementById('check').innerHTML = "T20 + T18 + D20";
+	if (left == 153) document.getElementById('check').innerHTML = "T20 + T19 + D18";
+	if (left == 152) document.getElementById('check').innerHTML = "T20 + T20 + D16";
+	if (left == 151) document.getElementById('check').innerHTML = "T20 + T17 + D20";
+	if (left == 151) document.getElementById('checkalt').innerHTML = "T19 + T18 + D20";
+	if (left == 150) document.getElementById('check').innerHTML = "T20 + T18 + D18";
+	if (left == 150) document.getElementById('checkalt').innerHTML = "T19 + T19 + D18";
+	if (left == 149) document.getElementById('check').innerHTML = "T20 + T19 + D16";
+	if (left == 148) document.getElementById('check').innerHTML = "T20 + T16 + D20";
+	if (left == 148) document.getElementById('checkalt').innerHTML = "T19 + T17 + D20";
+	if (left == 147) document.getElementById('check').innerHTML = "T20 + T17 + D18";
+	if (left == 147) document.getElementById('checkalt').innerHTML = "T19 + T18 + D18";
+	if (left == 146) document.getElementById('check').innerHTML = "T20 + T18 + D16";
+	if (left == 146) document.getElementById('checkalt').innerHTML = "T19 + T19 + D16";
+	if (left == 145) document.getElementById('check').innerHTML = "T20 + T15 + D20";
+	if (left == 144) document.getElementById('check').innerHTML = "T20 + T20 + D12";
+	if (left == 143) document.getElementById('check').innerHTML = "T19 + T18 + D16";
+	if (left == 143) document.getElementById('checkalt').innerHTML = "T20 + T17 + D16";
+	if (left == 142) document.getElementById('check').innerHTML = "T20 + T14 + D20";
+	if (left == 142) document.getElementById('checkalt').innerHTML = "T19 + T19 + D14";
+	if (left == 141) document.getElementById('check').innerHTML = "T20 + T19 + D12";
+	if (left == 140) document.getElementById('check').innerHTML = "T20 + T20 + D10";
+	if (left == 139) document.getElementById('check').innerHTML = "T19 + T14 + D20";
+	if (left == 139) document.getElementById('checkalt').innerHTML = "T20 + T17 + D11";
+	if (left == 138) document.getElementById('check').innerHTML = "T20 + T18 + D12";
+	if (left == 138) document.getElementById('checkalt').innerHTML = "T19 + T19 + D12";
+	if (left == 137) document.getElementById('check').innerHTML = "T17 + T17 + D16";
+	if (left == 136) document.getElementById('check').innerHTML = "T20 + T20 + D8";
+	if (left == 135) document.getElementById('check').innerHTML = "T20 + T17 + D12";
+	if (left == 135) document.getElementById('checkalt').innerHTML = "SBull + T20 + Bull";
+	if (left == 134) document.getElementById('check').innerHTML = "T20 + T14 + D16";
+	if (left == 133) document.getElementById('check').innerHTML = "T20 + T19 + D8";
+	if (left == 132) document.getElementById('check').innerHTML = "T20 + T16 + D12";
+	if (left == 132) document.getElementById('checkalt').innerHTML = "SBull + T19 + Bull";
+	if (left == 131) document.getElementById('check').innerHTML = "T20 + T13 + D16";
+	if (left == 131) document.getElementById('checkalt').innerHTML = "T19 + T14 + D16";
+	if (left == 130) document.getElementById('check').innerHTML = "T20 + T18 + D8";
+	if (left == 129) document.getElementById('check').innerHTML = "T19 + T16 + D12";
+	if (left == 129) document.getElementById('checkalt').innerHTML = "T20 + T19 + D6";
+	if (left == 128) document.getElementById('check').innerHTML = "T18 + T14 + D16";
+	if (left == 128) document.getElementById('checkalt').innerHTML = "T20 + T18 + D7";
+	if (left == 127) document.getElementById('check').innerHTML = "T20 + T17 + D8";
+	if (left == 126) document.getElementById('check').innerHTML = "T20 + T10 + D18";
+	if (left == 125) document.getElementById('check').innerHTML = "T20 + T11 + D16";
+	if (left == 125) document.getElementById('checkalt').innerHTML = "T18 + T19 + D7";
+	if (left == 124) document.getElementById('check').innerHTML = "T20 + T16 + D8";
+	if (left == 123) document.getElementById('check').innerHTML = "T19 + T14 + D12";
+	if (left == 122) document.getElementById('check').innerHTML = "T20 + T18 + D4";
+	if (left == 121) document.getElementById('check').innerHTML = "T18 + T17 + D8";
+	if (left == 121) document.getElementById('checkalt').innerHTML = "T17 + T20 + D5";
+	if (left == 120) document.getElementById('check').innerHTML = "T20 + S20 + D20";
+	if (left == 119) document.getElementById('check').innerHTML = "T19 + T10 + D16";
+	if (left == 118) document.getElementById('check').innerHTML = "T19 + S18 + D20";
+	if (left == 117) document.getElementById('check').innerHTML = "T20 + S17 + D20";
+	if (left == 117) document.getElementById('checkalt').innerHTML = "T19 + S20 + D20";
+	if (left == 116) document.getElementById('check').innerHTML = "T20 + S16 + D20";
+	if (left == 116) document.getElementById('checkalt').innerHTML = "T19 + S19 + D20";
+	if (left == 115) document.getElementById('check').innerHTML = "T19 + S18 + D20";
+	if (left == 115) document.getElementById('checkalt').innerHTML = "T20 + S15 + D20";
+	if (left == 114) document.getElementById('check').innerHTML = "T20 + S14 + D20";
+	if (left == 114) document.getElementById('checkalt').innerHTML = "T19 + S17 + D20";
+	if (left == 113) document.getElementById('check').innerHTML = "T19 + S16 + D20";
+	if (left == 112) document.getElementById('check').innerHTML = "T20 + S12 + D20";
+	if (left == 111) document.getElementById('check').innerHTML = "T19 + S14 + D20";
+	if (left == 111) document.getElementById('checkalt').innerHTML = "T20 + S11 + D20";
+	if (left == 110) document.getElementById('check').innerHTML = "T20 + S10 + D20";
+	if (left == 110) document.getElementById('checkalt').innerHTML = "T20 + Bull";
+	if (left == 109) document.getElementById('check').innerHTML = "T20 + S9 + D16";
+	if (left == 108) document.getElementById('check').innerHTML = "T19 + S19 + D16";
+	if (left == 107) document.getElementById('check').innerHTML = "T20 + S15 + D16";
+	if (left == 107) document.getElementById('checkalt').innerHTML = "T19 + Bull";
+	if (left == 106) document.getElementById('check').innerHTML = "T20 + S14 + D16";
+	if (left == 105) document.getElementById('check').innerHTML = "T19 + S8 + D20";
+	if (left == 104) document.getElementById('check').innerHTML = "T18 + S10 + D20";
+	if (left == 104) document.getElementById('checkalt').innerHTML = "T18 + Bull";
+	if (left == 103) document.getElementById('check').innerHTML = "T17 + S12 + D20";
+	if (left == 102) document.getElementById('check').innerHTML = "T19 + S13 + D16";
+	if (left == 101) document.getElementById('check').innerHTML = "T17 + S10 + D20";
+	if (left == 101) document.getElementById('checkalt').innerHTML = "T17 + Bull";
+	if (left == 100) document.getElementById('check').innerHTML = "T20 + D20";
+	if (left == 99) document.getElementById('check').innerHTML = "T19 + S10 + D16";
+	if (left == 98) document.getElementById('check').innerHTML = "T20 + D19";
+	if (left == 97) document.getElementById('check').innerHTML = "T19 + D20";
+	if (left == 96) document.getElementById('check').innerHTML = "T20 + D18";
+	if (left == 95) document.getElementById('check').innerHTML = "T19 + D19";
+	if (left == 95) document.getElementById('checkalt').innerHTML = "SBull + T20 + D5";
+	if (left == 94) document.getElementById('check').innerHTML = "T18 + D20";
+	if (left == 94) document.getElementById('checkalt').innerHTML = "SBull + T19 + D6";
+	if (left == 93) document.getElementById('check').innerHTML = "T19 + D18";
+	if (left == 93) document.getElementById('checkalt').innerHTML = "SBull + T18 + D7";
+	if (left == 92) document.getElementById('check').innerHTML = "T20 + D16";
+	if (left == 92) document.getElementById('checkalt').innerHTML = "SBull + T17 + D8";
+	if (left == 91) document.getElementById('check').innerHTML = "T17 + D20";
+	if (left == 90) document.getElementById('check').innerHTML = "T18 + D18";
+	if (left == 90) document.getElementById('checkalt').innerHTML = "T20 + D15";
+	if (left == 89) document.getElementById('check').innerHTML = "T19 + D16";
+	if (left == 88) document.getElementById('check').innerHTML = "T16 + D20";
+	if (left == 87) document.getElementById('check').innerHTML = "T17 + D18";
+	if (left == 86) document.getElementById('check').innerHTML = "T18 + D16";
+	if (left == 85) document.getElementById('check').innerHTML = "T15 + D20";
+	if (left == 85) document.getElementById('checkalt').innerHTML = "T19 + D14";
+	if (left == 84) document.getElementById('check').innerHTML = "T20 + D12";
+	if (left == 83) document.getElementById('check').innerHTML = "T17 + D16";
+	if (left == 82) document.getElementById('check').innerHTML = "T14 + D20";
+	if (left == 82) document.getElementById('checkalt').innerHTML = "Bull + D16";
+	if (left == 81) document.getElementById('check').innerHTML = "T19 + D12";
+	if (left == 81) document.getElementById('checkalt').innerHTML = "T15 + D8";
+	if (left == 80) document.getElementById('check').innerHTML = "T20 + D10";
+	if (left == 79) document.getElementById('check').innerHTML = "T13 + D20";
+	if (left == 79) document.getElementById('checkalt').innerHTML = "T19 + D11";
+	if (left == 78) document.getElementById('check').innerHTML = "T18 + D12";
+	if (left == 77) document.getElementById('check').innerHTML = "T15 + D16";
+	if (left == 76) document.getElementById('check').innerHTML = "T20 + D8";
+	if (left == 76) document.getElementById('checkalt').innerHTML = "T16 + D14";
+	if (left == 75) document.getElementById('check').innerHTML = "T17 + D12";
+	if (left == 74) document.getElementById('check').innerHTML = "T14 + D16";
+	if (left == 74) document.getElementById('checkalt').innerHTML = "T16 + D13";
+	if (left == 73) document.getElementById('check').innerHTML = "T19 + D8";
+	if (left == 72) document.getElementById('check').innerHTML = "T16 + D12";
+	if (left == 72) document.getElementById('checkalt').innerHTML = "T20 + D6";
+	if (left == 71) document.getElementById('check').innerHTML = "T13 + D16";
+	if (left == 71) document.getElementById('checkalt').innerHTML = "T19 + D7";
+	if (left == 70) document.getElementById('check').innerHTML = "T18 + D8";
+	if (left == 70) document.getElementById('checkalt').innerHTML = "T20 + D5";
+	if (left == 69) document.getElementById('check').innerHTML = "T15 + D12";
+	if (left == 68) document.getElementById('check').innerHTML = "T16 + D10";
+	if (left == 68) document.getElementById('checkalt').innerHTML = "T18 + D7";
+	if (left == 67) document.getElementById('check').innerHTML = "T9 + D20";
+	if (left == 67) document.getElementById('checkalt').innerHTML = "T17 + D8";
+	if (left == 66) document.getElementById('check').innerHTML = "T10 + D18";
+	if (left == 66) document.getElementById('checkalt').innerHTML = "T18 + D6";
+	if (left == 65) document.getElementById('check').innerHTML = "T11 + D16";
+	if (left == 65) document.getElementById('checkalt').innerHTML = "T19 + D4";
+	if (left == 64) document.getElementById('check').innerHTML = "T16 + D8";
+	if (left == 64) document.getElementById('checkalt').innerHTML = "T14 + D11";
+	if (left == 63) document.getElementById('check').innerHTML = "T13 + D12";
+	if (left == 63) document.getElementById('checkalt').innerHTML = "T17 + D6";
+	if (left == 62) document.getElementById('check').innerHTML = "T10 + D16";
+	if (left == 62) document.getElementById('checkalt').innerHTML = "T13 + D13";
+	if (left == 61) document.getElementById('check').innerHTML = "T15 + D8";
+	if (left == 61) document.getElementById('checkalt').innerHTML = "T11 + D14";
+	if (left == 60) document.getElementById('check').innerHTML = "S20 + D20";
+	if (left == 59) document.getElementById('check').innerHTML = "S19 + D20";
+	if (left == 58) document.getElementById('check').innerHTML = "S18 + D20";
+	if (left == 57) document.getElementById('check').innerHTML = "S17 + D20";
+	if (left == 56) document.getElementById('check').innerHTML = "S16 + D20";
+	if (left == 55) document.getElementById('check').innerHTML = "S15 + D20";
+	if (left == 54) document.getElementById('check').innerHTML = "S14 + D20";
+	if (left == 53) document.getElementById('check').innerHTML = "S13 + D20";
+	if (left == 53) document.getElementById('checkalt').innerHTML = "S17 + D18";
+	if (left == 52) document.getElementById('check').innerHTML = "S12 + D20";
+	if (left == 52) document.getElementById('checkalt').innerHTML = "S20 + D16";
+	if (left == 51) document.getElementById('check').innerHTML = "S11 + D20";
+	if (left == 51) document.getElementById('checkalt').innerHTML = "S19 + D16";
+	if (left == 50) document.getElementById('check').innerHTML = "S10 + D20";
+	if (left == 50) document.getElementById('checkalt').innerHTML = "S18 + D16";
+	if (left == 49) document.getElementById('check').innerHTML = "S9 + D20";
+	if (left == 49) document.getElementById('checkalt').innerHTML = "S17 + D16";
+	if (left == 48) document.getElementById('check').innerHTML = "S8 + D20";
+	if (left == 47) document.getElementById('check').innerHTML = "S7 + D20";
+	if (left == 47) document.getElementById('checkalt').innerHTML = "S15 + D16";
+	if (left == 46) document.getElementById('check').innerHTML = "S6 + D20";
+	if (left == 45) document.getElementById('check').innerHTML = "S13 + D16";
+	if (left == 45) document.getElementById('checkalt').innerHTML = "S19 + D13";
+	if (left == 44) document.getElementById('check').innerHTML = "S12 + D16";
+	if (left == 44) document.getElementById('checkalt').innerHTML = "S4 + D20";
+	if (left == 43) document.getElementById('check').innerHTML = "S3 + D20";
+	if (left == 43) document.getElementById('checkalt').innerHTML = "S11 + D16";
+	if (left == 42) document.getElementById('check').innerHTML = "S10 + D16";
+	if (left == 41) document.getElementById('check').innerHTML = "S9 + D16";
+}
+
+function checkout2(left2)
+{
+	if (left2 == 170) document.getElementById('check2').innerHTML = "T20 + T20 + Bull";
+	if (left2 == 167) document.getElementById('check2').innerHTML = "T20 + T19 + Bull";
+	if (left2 == 164) document.getElementById('check2').innerHTML = "T20 + T18 + Bull";
+	if (left2 == 164) document.getElementById('checkalt2').innerHTML = "T19 + T19 + Bull";
+	if (left2 == 161) document.getElementById('check2').innerHTML = "T20 + T17 + Bull";
+	if (left2 == 160) document.getElementById('check2').innerHTML = "T20 + T20 + D20";
+	if (left2 == 158) document.getElementById('check2').innerHTML = "T20 + T20 + D19";
+	if (left2 == 157) document.getElementById('check2').innerHTML = "T20 + T19 + D20";
+	if (left2 == 156) document.getElementById('check2').innerHTML = "T20 + T20 + D18";
+	if (left2 == 155) document.getElementById('check2').innerHTML = "T20 + T19 + D19";
+	if (left2 == 154) document.getElementById('check2').innerHTML = "T20 + T18 + D20";
+	if (left2 == 153) document.getElementById('check2').innerHTML = "T20 + T19 + D18";
+	if (left2 == 152) document.getElementById('check2').innerHTML = "T20 + T20 + D16";
+	if (left2 == 151) document.getElementById('check2').innerHTML = "T20 + T17 + D20";
+	if (left2 == 151) document.getElementById('checkalt2').innerHTML = "T19 + T18 + D20";
+	if (left2 == 150) document.getElementById('check2').innerHTML = "T20 + T18 + D18";
+	if (left2 == 150) document.getElementById('checkalt2').innerHTML = "T19 + T19 + D18";
+	if (left2 == 149) document.getElementById('check2').innerHTML = "T20 + T19 + D16";
+	if (left2 == 148) document.getElementById('check2').innerHTML = "T20 + T16 + D20";
+	if (left2 == 148) document.getElementById('checkalt2').innerHTML = "T19 + T17 + D20";
+	if (left2 == 147) document.getElementById('check2').innerHTML = "T20 + T17 + D18";
+	if (left2 == 147) document.getElementById('checkalt2').innerHTML = "T19 + T18 + D18";
+	if (left2 == 146) document.getElementById('check2').innerHTML = "T20 + T18 + D16";
+	if (left2 == 146) document.getElementById('checkalt2').innerHTML = "T19 + T19 + D16";
+	if (left2 == 145) document.getElementById('check2').innerHTML = "T20 + T15 + D20";
+	if (left2 == 144) document.getElementById('check2').innerHTML = "T20 + T20 + D12";
+	if (left2 == 143) document.getElementById('check2').innerHTML = "T19 + T18 + D16";
+	if (left2 == 143) document.getElementById('checkalt2').innerHTML = "T20 + T17 + D16";
+	if (left2 == 142) document.getElementById('check2').innerHTML = "T20 + T14 + D20";
+	if (left2 == 142) document.getElementById('checkalt2').innerHTML = "T19 + T19 + D14";
+	if (left2 == 141) document.getElementById('check2').innerHTML = "T20 + T19 + D12";
+	if (left2 == 140) document.getElementById('check2').innerHTML = "T20 + T20 + D10";
+	if (left2 == 139) document.getElementById('check2').innerHTML = "T19 + T14 + D20";
+	if (left2 == 139) document.getElementById('checkalt2').innerHTML = "T20 + T17 + D11";
+	if (left2 == 138) document.getElementById('check2').innerHTML = "T20 + T18 + D12";
+	if (left2 == 138) document.getElementById('checkalt2').innerHTML = "T19 + T19 + D12";
+	if (left2 == 137) document.getElementById('check2').innerHTML = "T17 + T17 + D16";
+	if (left2 == 136) document.getElementById('check2').innerHTML = "T20 + T20 + D8";
+	if (left2 == 135) document.getElementById('check2').innerHTML = "T20 + T17 + D12";
+	if (left2 == 135) document.getElementById('checkalt2').innerHTML = "SBull + T20 + Bull";
+	if (left2 == 134) document.getElementById('check2').innerHTML = "T20 + T14 + D16";
+	if (left2 == 133) document.getElementById('check2').innerHTML = "T20 + T19 + D8";
+	if (left2 == 132) document.getElementById('check2').innerHTML = "T20 + T16 + D12";
+	if (left2 == 132) document.getElementById('checkalt2').innerHTML = "SBull + T19 + Bull";
+	if (left2 == 131) document.getElementById('check2').innerHTML = "T20 + T13 + D16";
+	if (left2 == 131) document.getElementById('checkalt2').innerHTML = "T19 + T14 + D16";
+	if (left2 == 130) document.getElementById('check2').innerHTML = "T20 + T18 + D8";
+	if (left2 == 129) document.getElementById('check2').innerHTML = "T19 + T16 + D12";
+	if (left2 == 129) document.getElementById('checkalt2').innerHTML = "T20 + T19 + D6";
+	if (left2 == 128) document.getElementById('check2').innerHTML = "T18 + T14 + D16";
+	if (left2 == 128) document.getElementById('checkalt2').innerHTML = "T20 + T18 + D7";
+	if (left2 == 127) document.getElementById('check2').innerHTML = "T20 + T17 + D8";
+	if (left2 == 126) document.getElementById('check2').innerHTML = "T20 + T10 + D18";
+	if (left2 == 125) document.getElementById('check2').innerHTML = "T20 + T11 + D16";
+	if (left2 == 125) document.getElementById('checkalt2').innerHTML = "T18 + T19 + D7";
+	if (left2 == 124) document.getElementById('check2').innerHTML = "T20 + T16 + D8";
+	if (left2 == 123) document.getElementById('check2').innerHTML = "T19 + T14 + D12";
+	if (left2 == 122) document.getElementById('check2').innerHTML = "T20 + T18 + D4";
+	if (left2 == 121) document.getElementById('check2').innerHTML = "T18 + T17 + D8";
+	if (left2 == 121) document.getElementById('checkalt2').innerHTML = "T17 + T20 + D5";
+	if (left2 == 120) document.getElementById('check2').innerHTML = "T20 + S20 + D20";
+	if (left2 == 119) document.getElementById('check2').innerHTML = "T19 + T10 + D16";
+	if (left2 == 118) document.getElementById('check2').innerHTML = "T19 + S18 + D20";
+	if (left2 == 117) document.getElementById('check2').innerHTML = "T20 + S17 + D20";
+	if (left2 == 117) document.getElementById('checkalt2').innerHTML = "T19 + S20 + D20";
+	if (left2 == 116) document.getElementById('check2').innerHTML = "T20 + S16 + D20";
+	if (left2 == 116) document.getElementById('checkalt2').innerHTML = "T19 + S19 + D20";
+	if (left2 == 115) document.getElementById('check2').innerHTML = "T19 + S18 + D20";
+	if (left2 == 115) document.getElementById('checkalt2').innerHTML = "T20 + S15 + D20";
+	if (left2 == 114) document.getElementById('check2').innerHTML = "T20 + S14 + D20";
+	if (left2 == 114) document.getElementById('checkalt2').innerHTML = "T19 + S17 + D20";
+	if (left2 == 113) document.getElementById('check2').innerHTML = "T19 + S16 + D20";
+	if (left2 == 112) document.getElementById('check2').innerHTML = "T20 + S12 + D20";
+	if (left2 == 111) document.getElementById('check2').innerHTML = "T19 + S14 + D20";
+	if (left2 == 111) document.getElementById('checkalt2').innerHTML = "T20 + S11 + D20";
+	if (left2 == 110) document.getElementById('check2').innerHTML = "T20 + S10 + D20";
+	if (left2 == 110) document.getElementById('checkalt2').innerHTML = "T20 + Bull";
+	if (left2 == 109) document.getElementById('check2').innerHTML = "T20 + S9 + D16";
+	if (left2 == 108) document.getElementById('check2').innerHTML = "T19 + S19 + D16";
+	if (left2 == 107) document.getElementById('check2').innerHTML = "T20 + S15 + D16";
+	if (left2 == 107) document.getElementById('checkalt2').innerHTML = "T19 + Bull";
+	if (left2 == 106) document.getElementById('check2').innerHTML = "T20 + S14 + D16";
+	if (left2 == 105) document.getElementById('check2').innerHTML = "T19 + S8 + D20";
+	if (left2 == 104) document.getElementById('check2').innerHTML = "T18 + S10 + D20";
+	if (left2 == 104) document.getElementById('checkalt2').innerHTML = "T18 + Bull";
+	if (left2 == 103) document.getElementById('check2').innerHTML = "T17 + S12 + D20";
+	if (left2 == 102) document.getElementById('check2').innerHTML = "T19 + S13 + D16";
+	if (left2 == 101) document.getElementById('check2').innerHTML = "T17 + S10 + D20";
+	if (left2 == 101) document.getElementById('checkalt2').innerHTML = "T17 + Bull";
+	if (left2 == 100) document.getElementById('check2').innerHTML = "T20 + D20";
+	if (left2 == 99) document.getElementById('check2').innerHTML = "T19 + S10 + D16";
+	if (left2 == 98) document.getElementById('check2').innerHTML = "T20 + D19";
+	if (left2 == 97) document.getElementById('check2').innerHTML = "T19 + D20";
+	if (left2 == 96) document.getElementById('check2').innerHTML = "T20 + D18";
+	if (left2 == 95) document.getElementById('check2').innerHTML = "T19 + D19";
+	if (left2 == 95) document.getElementById('checkalt2').innerHTML = "SBull + T20 + D5";
+	if (left2 == 94) document.getElementById('check2').innerHTML = "T18 + D20";
+	if (left2 == 94) document.getElementById('checkalt2').innerHTML = "SBull + T19 + D6";
+	if (left2 == 93) document.getElementById('check2').innerHTML = "T19 + D18";
+	if (left2 == 93) document.getElementById('checkalt2').innerHTML = "SBull + T18 + D7";
+	if (left2 == 92) document.getElementById('check2').innerHTML = "T20 + D16";
+	if (left2 == 92) document.getElementById('checkalt2').innerHTML = "SBull + T17 + D8";
+	if (left2 == 91) document.getElementById('check2').innerHTML = "T17 + D20";
+	if (left2 == 90) document.getElementById('check2').innerHTML = "T18 + D18";
+	if (left2 == 90) document.getElementById('checkalt2').innerHTML = "T20 + D15";
+	if (left2 == 89) document.getElementById('check2').innerHTML = "T19 + D16";
+	if (left2 == 88) document.getElementById('check2').innerHTML = "T16 + D20";
+	if (left2 == 87) document.getElementById('check2').innerHTML = "T17 + D18";
+	if (left2 == 86) document.getElementById('check2').innerHTML = "T18 + D16";
+	if (left2 == 85) document.getElementById('check2').innerHTML = "T15 + D20";
+	if (left2 == 85) document.getElementById('checkalt2').innerHTML = "T19 + D14";
+	if (left2 == 84) document.getElementById('check2').innerHTML = "T20 + D12";
+	if (left2 == 83) document.getElementById('check2').innerHTML = "T17 + D16";
+	if (left2 == 82) document.getElementById('check2').innerHTML = "T14 + D20";
+	if (left2 == 82) document.getElementById('checkalt2').innerHTML = "Bull + D16";
+	if (left2 == 81) document.getElementById('check2').innerHTML = "T19 + D12";
+	if (left2 == 81) document.getElementById('checkalt2').innerHTML = "T15 + D8";
+	if (left2 == 80) document.getElementById('check2').innerHTML = "T20 + D10";
+	if (left2 == 79) document.getElementById('check2').innerHTML = "T13 + D20";
+	if (left2 == 79) document.getElementById('checkalt2').innerHTML = "T19 + D11";
+	if (left2 == 78) document.getElementById('check2').innerHTML = "T18 + D12";
+	if (left2 == 77) document.getElementById('check2').innerHTML = "T15 + D16";
+	if (left2 == 76) document.getElementById('check2').innerHTML = "T20 + D8";
+	if (left2 == 76) document.getElementById('checkalt2').innerHTML = "T16 + D14";
+	if (left2 == 75) document.getElementById('check2').innerHTML = "T17 + D12";
+	if (left2 == 74) document.getElementById('check2').innerHTML = "T14 + D16";
+	if (left2 == 74) document.getElementById('checkalt2').innerHTML = "T16 + D13";
+	if (left2 == 73) document.getElementById('check2').innerHTML = "T19 + D8";
+	if (left2 == 72) document.getElementById('check2').innerHTML = "T16 + D12";
+	if (left2 == 72) document.getElementById('checkalt2').innerHTML = "T20 + D6";
+	if (left2 == 71) document.getElementById('check2').innerHTML = "T13 + D16";
+	if (left2 == 71) document.getElementById('checkalt2').innerHTML = "T19 + D7";
+	if (left2 == 70) document.getElementById('check2').innerHTML = "T18 + D8";
+	if (left2 == 70) document.getElementById('checkalt2').innerHTML = "T20 + D5";
+	if (left2 == 69) document.getElementById('check2').innerHTML = "T15 + D12";
+	if (left2 == 68) document.getElementById('check2').innerHTML = "T16 + D10";
+	if (left2 == 68) document.getElementById('checkalt2').innerHTML = "T18 + D7";
+	if (left2 == 67) document.getElementById('check2').innerHTML = "T9 + D20";
+	if (left2 == 67) document.getElementById('checkalt2').innerHTML = "T17 + D8";
+	if (left2 == 66) document.getElementById('check2').innerHTML = "T10 + D18";
+	if (left2 == 66) document.getElementById('checkalt2').innerHTML = "T18 + D6";
+	if (left2 == 65) document.getElementById('check2').innerHTML = "T11 + D16";
+	if (left2 == 65) document.getElementById('checkalt2').innerHTML = "T19 + D4";
+	if (left2 == 64) document.getElementById('check2').innerHTML = "T16 + D8";
+	if (left2 == 64) document.getElementById('checkalt2').innerHTML = "T14 + D11";
+	if (left2 == 63) document.getElementById('check2').innerHTML = "T13 + D12";
+	if (left2 == 63) document.getElementById('checkalt2').innerHTML = "T17 + D6";
+	if (left2 == 62) document.getElementById('check2').innerHTML = "T10 + D16";
+	if (left2 == 62) document.getElementById('checkalt2').innerHTML = "T13 + D13";
+	if (left2 == 61) document.getElementById('check2').innerHTML = "T15 + D8";
+	if (left2 == 61) document.getElementById('checkalt2').innerHTML = "T11 + D14";
+	if (left2 == 60) document.getElementById('check2').innerHTML = "S20 + D20";
+	if (left2 == 59) document.getElementById('check2').innerHTML = "S19 + D20";
+	if (left2 == 58) document.getElementById('check2').innerHTML = "S18 + D20";
+	if (left2 == 57) document.getElementById('check2').innerHTML = "S17 + D20";
+	if (left2 == 56) document.getElementById('check2').innerHTML = "S16 + D20";
+	if (left2 == 55) document.getElementById('check2').innerHTML = "S15 + D20";
+	if (left2 == 54) document.getElementById('check2').innerHTML = "S14 + D20";
+	if (left2 == 53) document.getElementById('check2').innerHTML = "S13 + D20";
+	if (left2 == 53) document.getElementById('checkalt2').innerHTML = "S17 + D18";
+	if (left2 == 52) document.getElementById('check2').innerHTML = "S12 + D20";
+	if (left2 == 52) document.getElementById('checkalt2').innerHTML = "S20 + D16";
+	if (left2 == 51) document.getElementById('check2').innerHTML = "S11 + D20";
+	if (left2 == 51) document.getElementById('checkalt2').innerHTML = "S19 + D16";
+	if (left2 == 50) document.getElementById('check2').innerHTML = "S10 + D20";
+	if (left2 == 50) document.getElementById('checkalt2').innerHTML = "S18 + D16";
+	if (left2 == 49) document.getElementById('check2').innerHTML = "S9 + D20";
+	if (left2 == 49) document.getElementById('checkalt2').innerHTML = "S17 + D16";
+	if (left2 == 48) document.getElementById('check2').innerHTML = "S8 + D20";
+	if (left2 == 47) document.getElementById('check2').innerHTML = "S7 + D20";
+	if (left2 == 47) document.getElementById('checkalt2').innerHTML = "S15 + D16";
+	if (left2 == 46) document.getElementById('check2').innerHTML = "S6 + D20";
+	if (left2 == 45) document.getElementById('check2').innerHTML = "S13 + D16";
+	if (left2 == 45) document.getElementById('checkalt2').innerHTML = "S19 + D13";
+	if (left2 == 44) document.getElementById('check2').innerHTML = "S12 + D16";
+	if (left2 == 44) document.getElementById('checkalt2').innerHTML = "S4 + D20";
+	if (left2 == 43) document.getElementById('check2').innerHTML = "S3 + D20";
+	if (left2 == 43) document.getElementById('checkalt2').innerHTML = "S11 + D16";
+	if (left2 == 42) document.getElementById('check2').innerHTML = "S10 + D16";
+	if (left2 == 41) document.getElementById('check2').innerHTML = "S9 + D16";
+}
+
+
+</script>
+
+<td width="60%">
+<img src="dartboard.jpg" width="800" height="800" class="schwarz" style="position:absolute; top:50px; left:10px;">
+
+<a onclick="minus(40,40)" class="weiss" style="position:absolute; top:143px; left:397px; font-size:20pt;"><b>40</b></a>
+<a onclick="minus(20,20)" class="weiss" style="position:absolute; top:200px; left:397px; font-size:20pt;"><b>20</b></a>
+<a onclick="minus(60,60)" class="weiss" style="position:absolute; top:254px; left:397px; font-size:20pt;"><b>60</b></a>
+
+<a onclick="minus(2,23)" class="anders" style="position:absolute; top:158px; left:495px; font-size:20pt;"><b>2</b></a>
+<a onclick="minus(1,1)" class="schwarz" style="position:absolute; top:210px; left:478px; font-size:20pt;"><b>1</b></a>
+<a onclick="minus(3,3)" class="anders" style="position:absolute; top:263px; left:461px; font-size:20pt;"><b>3</b></a>
+
+<a onclick="minus(36,36)" class="weiss" style="position:absolute; top:199px; left:570px; font-size:20pt;"><b>36</b></a>
+<a onclick="minus(18,18)" class="weiss" style="position:absolute; top:240px; left:540px; font-size:20pt;"><b>18</b></a>
+<a onclick="minus(54,54)" class="weiss" style="position:absolute; top:290px; left:504px; font-size:20pt;"><b>54</b></a>
+
+<a onclick="minus(8,8)" class="anders" style="position:absolute; top:265px; left:642px; font-size:20pt;"><b>8</b></a>
+<a onclick="minus(4,4)" class="schwarz" style="position:absolute; top:293px; left:600px; font-size:20pt;"><b>4</b></a>
+<a onclick="minus(12,12)" class="anders" style="position:absolute; top:330px; left:544px; font-size:20pt;"><b>12</b></a>
+
+<a onclick="minus(26,26)" class="weiss" style="position:absolute; top:345px; left:675px; font-size:20pt;"><b>26</b></a>
+<a onclick="minus(13,13)" class="weiss" style="position:absolute; top:357px; left:625px; font-size:20pt;"><b>13</b></a>
+<a onclick="minus(39,39)" class="weiss" style="position:absolute; top:378px; left:568px; font-size:20pt;"><b>39</b></a>
+
+<a onclick="minus(12,12)" class="anders" style="position:absolute; top:435px; left:687px; font-size:20pt;"><b>12</b></a>
+<a onclick="minus(6,6)" class="schwarz" style="position:absolute; top:435px; left:640px; font-size:20pt;"><b>6</b></a>
+<a onclick="minus(18,18)" class="anders" style="position:absolute; top:435px; left:575px; font-size:20pt;"><b>18</b></a>
+
+<a onclick="minus(20,20)" class="weiss" style="position:absolute; top:522px; left:675px; font-size:20pt;"><b>20</b></a>
+<a onclick="minus(10,10)" class="weiss" style="position:absolute; top:505px; left:625px; font-size:20pt;"><b>10</b></a>
+<a onclick="minus(30,30)" class="weiss" style="position:absolute; top:490px; left:568px; font-size:20pt;"><b>30</b></a>
+
+<a onclick="minus(30,30)" class="anders" style="position:absolute; top:605px; left:633px; font-size:20pt;"><b>30</b></a>
+<a onclick="minus(15,15)" class="schwarz" style="position:absolute; top:575px; left:590px; font-size:20pt;"><b>15</b></a>
+<a onclick="minus(45,45)" class="anders" style="position:absolute; top:540px; left:542px; font-size:20pt;"><b>45</b></a>
+
+<a onclick="minus(4,4)" class="weiss" style="position:absolute; top:668px; left:575px; font-size:20pt;"><b>4</b></a>
+<a onclick="minus(2,2)" class="weiss" style="position:absolute; top:625px; left:543px; font-size:20pt;"><b>2</b></a>
+<a onclick="minus(6,6)" class="weiss" style="position:absolute; top:580px; left:510px; font-size:20pt;"><b>6</b></a>
+
+<a onclick="minus(34,34)" class="anders" style="position:absolute; top:711px; left:488px; font-size:20pt;"><b>34</b></a>
+<a onclick="minus(17,17)" class="schwarz" style="position:absolute; top:660px; left:470px; font-size:20pt;"><b>17</b></a>
+<a onclick="minus(51,51)" class="anders" style="position:absolute; top:605px; left:456px; font-size:20pt;"><b>51</b></a>
+
+<a onclick="minus(6,6)" class="weiss" style="position:absolute; top:728px; left:405px; font-size:20pt;"><b>6</b></a>
+<a onclick="minus(3,3)" class="weiss" style="position:absolute; top:677px; left:405px; font-size:20pt;"><b>3</b></a>
+<a onclick="minus(9,9)" class="weiss" style="position:absolute; top:616px; left:405px; font-size:20pt;"><b>9</b></a>
+
+<a onclick="minus(38,38)" class="anders" style="position:absolute; top:713px; left:309px; font-size:20pt;"><b>38</b></a>
+<a onclick="minus(19,19)" class="schwarz" style="position:absolute; top:660px; left:321px; font-size:20pt;"><b>19</b></a>
+<a onclick="minus(57,57)" class="anders" style="position:absolute; top:606px; left:344px; font-size:20pt;"><b>57</b></a>
+
+<a onclick="minus(14,14)" class="weiss" style="position:absolute; top:671px; left:225px; font-size:20pt;"><b>14</b></a>
+<a onclick="minus(7,7)" class="weiss" style="position:absolute; top:625px; left:264px; font-size:20pt;"><b>7</b></a>
+<a onclick="minus(21,21)" class="weiss" style="position:absolute; top:581px; left:291px; font-size:20pt;"><b>21</b></a>
+
+<a onclick="minus(32,32)" class="anders" style="position:absolute; top:606px; left:160px; font-size:20pt;"><b>32</b></a>
+<a onclick="minus(16,16)" class="schwarz" style="position:absolute; top:578px; left:202px; font-size:20pt;"><b>16</b></a>
+<a onclick="minus(48,48)" class="anders" style="position:absolute; top:540px; left:250px; font-size:20pt;"><b>48</b></a>
+
+<a onclick="minus(16,16)" class="weiss" style="position:absolute; top:530px; left:123px; font-size:20pt;"><b>16</b></a>
+<a onclick="minus(8,8)" class="weiss" style="position:absolute; top:515px; left:173px; font-size:20pt;"><b>8</b></a>
+<a onclick="minus(24,24)" class="weiss" style="position:absolute; top:495px; left:229px; font-size:20pt;"><b>24</b></a>
+
+<a onclick="minus(22,22)" class="anders" style="position:absolute; top:438px; left:106px; font-size:20pt;"><b>22</b></a>
+<a onclick="minus(11,11)" class="schwarz" style="position:absolute; top:438px; left:158px; font-size:20pt;"><b>11</b></a>
+<a onclick="minus(33,33)" class="anders" style="position:absolute; top:438px; left:217px; font-size:20pt;"><b>33</b></a>
+
+<a onclick="minus(28,28)" class="weiss" style="position:absolute; top:342px; left:120px; font-size:20pt;"><b>28</b></a>
+<a onclick="minus(14,14)" class="weiss" style="position:absolute; top:360px; left:168px; font-size:20pt;"><b>14</b></a>
+<a onclick="minus(42,42)" class="weiss" style="position:absolute; top:378px; left:226px; font-size:20pt;"><b>42</b></a>
+
+<a onclick="minus(18,18)" class="anders" style="position:absolute; top:261px; left:161px; font-size:20pt;"><b>18</b></a>
+<a onclick="minus(9,9)" class="schwarz" style="position:absolute; top:293px; left:207px; font-size:20pt;"><b>9</b></a>
+<a onclick="minus(27,27)" class="anders" style="position:absolute; top:328px; left:252px; font-size:20pt;"><b>27</b></a>
+
+<a onclick="minus(24,24)" class="weiss" style="position:absolute; top:197px; left:227px; font-size:20pt;"><b>24</b></a>
+<a onclick="minus(12,12)" class="weiss" style="position:absolute; top:240px; left:255px; font-size:20pt;"><b>12</b></a>
+<a onclick="minus(36,36)" class="weiss" style="position:absolute; top:289px; left:291px; font-size:20pt;"><b>36</b></a>
+
+<a onclick="minus(10,10)" class="anders" style="position:absolute; top:157px; left:308px; font-size:20pt;"><b>10</b></a>
+<a onclick="minus(5,5)" class="schwarz" style="position:absolute; top:210px; left:328px; font-size:20pt;"><b>5</b></a>
+<a onclick="minus(15,15)" class="anders" style="position:absolute; top:263px; left:342px; font-size:20pt;"><b>15</b></a>
+
+<a onclick="minus(25,25)" class="anders" style="position:absolute; top:412px; left:397px; font-size:20pt;"><b>25</b></a>
+<a onclick="minus(50,50)" class="weiss" style="position:absolute; top:435px; left:397px; font-size:20pt;"><b>50</b></a>
+<a onclick="minus(0,0)" class="weiss" style="position:absolute; top:105px; left:379; font-size:20pt;"><b>OUT!</b></a>
+
+<a onclick="start(501,)" class="schwarz" style="position:absolute; top:10px; left:10px; font-size:16pt;"><b>1 Spieler (501)</b></a>
+<a onclick="start2(501,501)" class="schwarz" style="position:absolute; top:50px; left:10px; font-size:16pt;"><b>2 Spieler (501)</b></a>
+
+
+<a style="position:absolute; top:210px; left:850px; font-size:16pt;"><b>Spieler 1</b></a>
+<a style="position:absolute; top:240px; left:850px; font-size:16pt;"><b>Left:</b></a>
+<a style="position:absolute; top:270px; left:850px; font-size:16pt;"><b>Last Score:</b></a>
+<a style="position:absolute; top:300px; left:850px; font-size:16pt;"><b>Darts:</b></a>
+<a style="position:absolute; top:330px; left:850px; font-size:16pt;"><b>Average:</b></a>
+<a style="position:absolute; top:360px; left:850px; font-size:16pt;"><b>Double Quote:</b></a>
+<a style="position:absolute; top:390px; left:850px; font-size:16pt;"><b>Tripple Quote:</b></a>
+<a style="position:absolute; top:210px; left:1100px; font-size:16pt;"><b>Checkout</b></a>
+
+<a style="position:absolute; top:470px; left:850px; font-size:16pt;"><b>Spieler 2</b></a>
+<a style="position:absolute; top:500px; left:850px; font-size:16pt;"><b>Left:</b></a>
+<a style="position:absolute; top:530px; left:850px; font-size:16pt;"><b>Last Score:</b></a>
+<a style="position:absolute; top:560px; left:850px; font-size:16pt;"><b>Darts:</b></a>
+<a style="position:absolute; top:590px; left:850px; font-size:16pt;"><b>Average:</b></a>
+<a style="position:absolute; top:620px; left:850px; font-size:16pt;"><b>Double Quote:</b></a>
+<a style="position:absolute; top:650px; left:850px; font-size:16pt;"><b>Tripple Quote:</b></a>
+<a style="position:absolute; top:470px; left:1100px; font-size:16pt;"><b>Checkout</b></a>
+
+<div id="rest" style="position:absolute; top:240px; left:1000px; font-size:16pt;"></div>
+<div id="score" style="position:absolute; top:270px; left:1000px; font-size:16pt;"></div>
+<div id="darts" style="position:absolute; top:300px; left:1000px; font-size:16pt;"></div>
+<div id="avg3" style="position:absolute; top:330px; left:1000px; font-size:16pt;"></div>
+<div id="dpl" style="position:absolute; top:360px; left:1000px; font-size:16pt;"></div>
+<div id="tpl" style="position:absolute; top:390px; left:1000px; font-size:16pt;"></div>
+
+<div id="check" style="position:absolute; top:240px; left:1100px; font-size:16pt;"></div>
+<div id="checkalt" style="position:absolute; top:270px; left:1100px; font-size:16pt;"></div>
+
+<div id="rest2" style="position:absolute; top:500px; left:1000px; font-size:16pt;"></div>
+<div id="score2" style="position:absolute; top:530px; left:1000px; font-size:16pt;"></div>
+<div id="darts2" style="position:absolute; top:560px; left:1000px; font-size:16pt;"></div>
+<div id="avg32" style="position:absolute; top:590px; left:1000px; font-size:16pt;"></div>
+<div id="dpl2" style="position:absolute; top:620px; left:1000px; font-size:16pt;"></div>
+<div id="tpl2" style="position:absolute; top:650px; left:1000px; font-size:16pt;"></div>
+
+<div id="check2" style="position:absolute; top:500px; left:1100px; font-size:16pt;"></div>
+<div id="checkalt2" style="position:absolute; top:530px; left:1100px; font-size:16pt;"></div>
+
+<div id="reihe" style="position:absolute; top:100px; left:800px; font-size:25pt;"></div>
+</td>
+</html>
